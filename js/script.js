@@ -11,16 +11,21 @@ project 1 - A Random Quote Generator
  * `quotes` array 
 ***/
 
+
+
 var quotes = [
 	{
 		quote: "Believe you can and you're halfway there.",
 		source: "Theodore Roosevelt",
-		year: 1903
+		year: 1903,
+		tags: "politics"
+
 
 	},
 	{
 		quote: "To live is the rarest thing in the world. Most people exist, that is all",
-		source: "Oscar Wilde"
+		source: "Oscar Wilde",
+		tags: "literary"
 	},
 	{
 		quote: "Live as if you were to die tomorrow. Learn as if you were to live forever",
@@ -30,7 +35,8 @@ var quotes = [
 		quote: "Without music, life would be a mistake.",
 		source: "Friedrich Nietzsche",
 		citation: "Twilight of the Idols",
-		year: 1932
+		year: 1932,
+		tags: "philosophy"
 	},
 	{
 		quote: "Life is what happens to us while we are making other plans.",
@@ -92,6 +98,7 @@ function getRandomQuote (){
 }
 
 
+
 /***
  * `printQuote` function
 ***/
@@ -100,23 +107,32 @@ function printQuote (){
 	getRandomQuote();
 	quoteAndsourcehtml = '<p class="quote">' + chosenQuote.quote + '</p><p class="source">' + chosenQuote.source;
 
-	if (chosenQuote.citation == null && chosenQuote.year == null){
-		document.getElementById('quote-box').innerHTML = 
-		quoteAndsourcehtml +  '</p>';
+	if (chosenQuote.citation == null && chosenQuote.year == null && chosenQuote.tags == null){
+		quoteAndsourcehtml +=  '</p>';
 
-	}else if (chosenQuote.citation == null && chosenQuote.year !== null ){
-		document.getElementById('quote-box').innerHTML = 
-		quoteAndsourcehtml + '<span class="year">' + chosenQuote.year + '</span></p>';
+	}else if(chosenQuote.citation == null && chosenQuote.year == null && chosenQuote.tags !==null){
+		quoteAndsourcehtml += '<span class="tags">' + chosenQuote.tags + '</span></p>';
 
-	}else if (chosenQuote.citation !== null && chosenQuote.year == null){
-		document.getElementById('quote-box').innerHTML = 
-		quoteAndsourcehtml + '<span class="citation">' + chosenQuote.citation + '</span></p>';
+	}else if (chosenQuote.citation == null && chosenQuote.year !== null && chosenQuote.tags == null){
+		quoteAndsourcehtml += '<span class="year">' + chosenQuote.year + '</span></p>';
+
+	}else if (chosenQuote.citation == null && chosenQuote.year !== null && chosenQuote.tags !== null){
+		quoteAndsourcehtml += '<span class="year">' + chosenQuote.year + '</span><span class = "tags">' + chosenQuote.tags + '</span></p>';
+
+	}else if (chosenQuote.citation !== null && chosenQuote.year == null && chosenQuote.tags == null){
+		quoteAndsourcehtml += '<span class="citation">' + chosenQuote.citation + '</span></p>';
+
+	}else if (chosenQuote.citation !== null && chosenQuote.year == null && chosenQuote.tags !== null){
+		quoteAndsourcehtml += '<span class="citation">' + chosenQuote.citation + '</span><span class = "tags">' + chosenQuote.tags + '</span></p>';
 
 	}else{
-	document.getElementById('quote-box').innerHTML = 
-	quoteAndsourcehtml + '<span class="citation">' + chosenQuote.citation + '</span><span class="year">' + chosenQuote.year + '</span></p>';
+	quoteAndsourcehtml += '<span class="citation">' + chosenQuote.citation + '</span><span class="year">' + chosenQuote.year + '</span></p>';
 	}	
 
+//no year, yes tags
+	
+
+	document.getElementById('quote-box').innerHTML = quoteAndsourcehtml;
 	changeBackground();
 
 } //close function
@@ -130,3 +146,13 @@ function printQuote (){
 ***/
 
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
+
+/* quote refresh on interval, sourced from:
+ https://stackoverflow.com/questions/4515944/how-to-click-a-browser-button-with-javascript-automatically*/
+
+setInterval(
+	function () {
+		document.getElementById("load-quote").click();}
+		, 3000);
+
+
