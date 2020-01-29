@@ -85,9 +85,7 @@ function changeBackground(){
 /***
  * `getRandomQuote` function
 ***/
-//get a random number from length of quotes
-//
-
+//get a random number from length of quotes, use random numer to choose the quote
 
 var randomNum;
 var chosenQuote;
