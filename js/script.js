@@ -85,14 +85,17 @@ function changeBackground(){
 /***
  * `getRandomQuote` function
 ***/
-//get a random number from length of quotes, use random numer to choose the quote
+//get a random number from length of quotes, use random numer to choose the quote and return
 
-var randomNum;
-var chosenQuote;
 
 function getRandomQuote (){
+	var randomNum;
+    var chosenQuote;
+
 	randomNum = Math.floor(Math.random()*quotes.length);
 	chosenQuote = quotes[randomNum];
+
+	return chosenQuote;
 }
 
 
@@ -102,32 +105,22 @@ function getRandomQuote (){
 ***/
 function printQuote (){
 
-	getRandomQuote();
-	quoteAndsourcehtml = '<p class="quote">' + chosenQuote.quote + '</p><p class="source">' + chosenQuote.source;
+	var chosenQuote = getRandomQuote();
+	var quoteAndsourcehtml = '<p class="quote">' + chosenQuote.quote + '</p><p class="source">' + chosenQuote.source;
 
-	if (chosenQuote.citation == null && chosenQuote.year == null && chosenQuote.tags == null){
-		quoteAndsourcehtml +=  '</p>';
+	if (chosenQuote.citation) {
+  	quoteAndsourcehtml += '<span class="citation">' + chosenQuote.citation + '</span>'
+	};
 
-	}else if(chosenQuote.citation == null && chosenQuote.year == null && chosenQuote.tags !==null){
-		quoteAndsourcehtml += '<span class="tags">' + chosenQuote.tags + '</span></p>';
+	if (chosenQuote.year){
+		quoteAndsourcehtml += '<span class="year">' + chosenQuote.year + '</span>'
+	};
 
-	}else if (chosenQuote.citation == null && chosenQuote.year !== null && chosenQuote.tags == null){
-		quoteAndsourcehtml += '<span class="year">' + chosenQuote.year + '</span></p>';
+	if (chosenQuote.tags){
+		quoteAndsourcehtml += '<span class="tags">' + chosenQuote.tags + '</span>'
+	};
 
-	}else if (chosenQuote.citation == null && chosenQuote.year !== null && chosenQuote.tags !== null){
-		quoteAndsourcehtml += '<span class="year">' + chosenQuote.year + '</span><span class = "tags">' + chosenQuote.tags + '</span></p>';
-
-	}else if (chosenQuote.citation !== null && chosenQuote.year == null && chosenQuote.tags == null){
-		quoteAndsourcehtml += '<span class="citation">' + chosenQuote.citation + '</span></p>';
-
-	}else if (chosenQuote.citation !== null && chosenQuote.year == null && chosenQuote.tags !== null){
-		quoteAndsourcehtml += '<span class="citation">' + chosenQuote.citation + '</span><span class = "tags">' + chosenQuote.tags + '</span></p>';
-
-	}else{
-	quoteAndsourcehtml += '<span class="citation">' + chosenQuote.citation + '</span><span class="year">' + chosenQuote.year + '</span></p>';
-	}	
-
-//no year, yes tags
+	quoteAndsourcehtml += '</p>';
 	
 
 	document.getElementById('quote-box').innerHTML = quoteAndsourcehtml;
